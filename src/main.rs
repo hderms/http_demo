@@ -19,9 +19,9 @@ a";
         let buf = &buf[..read_bytes];
         let res = req.parse(buf).unwrap();
         if res.is_partial() {
-           continue;
+            continue;
         } else {
-        break;
+            break;
         }
     }
     ring.send(b, &msg).await?;
