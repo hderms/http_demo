@@ -12,8 +12,13 @@ async fn parse_http(ring: &rio::Rio, a: &TcpStream, b: &TcpStream) -> io::Result
     loop {
         let read_bytes = ring.read_at(a, &buf, 0).await?;
         let buf = &buf[..read_bytes];
+        let msg = "HTTP/1.1 200 OK
+Content-Length: 1
+Content-Type: text/plain
+
+a";
         req.parse(buf).unwrap();
-        ring.write_at(b, &buf, 0).await?;
+        ring.write_at(b, &msg, 0).await?;
     }
 }
 
